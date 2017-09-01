@@ -1,0 +1,1 @@
+package com.insping;public interface Const {	String RES_PATH = "./res/";	String CONF_PATH = "./config/";	String NOC_PATH = "./notice/";}
