@@ -1,7 +1,9 @@
 package com.insping.libra.world;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.util.Properties;
@@ -11,7 +13,7 @@ import com.insping.log.LibraLog;
 
 public class LibraConfig {
 	public static long SYSTEM_TRANFOEM_ID = 1;// 服务器列表传输数据的用户编号说
-	public static int SERVER_ID = 1;// 服务器列表实例号
+	public static int SERVER_ID = 10001;// 服务器列表实例号
 	public static String SOCKET_IP = "192.168.0.104";
 	public static int SOCKET_PORT = 9051;
 	public static String HTTP_IP = "0.0.0.0";
@@ -19,9 +21,8 @@ public class LibraConfig {
 
 	public static void load() {
 		Properties properties = new Properties();
-		File file = new File(Const.CONF_PATH + "config.properties");
 		try {
-			properties.load(new FileInputStream(file));
+			properties.load(new InputStreamReader(new BufferedInputStream(new FileInputStream(Const.CONF_PATH + "config.properties")), "UTF-8"));
 			Field[] fields = LibraConfig.class.getDeclaredFields();
 			for (Field field : fields) {
 				String str = properties.getProperty(field.getName());
@@ -32,7 +33,7 @@ public class LibraConfig {
 			}
 			LibraLog.info("config Properties loaded!");
 		} catch (Exception e) {
-			LibraLog.error("libraconfig is exception ,e :" + e.getMessage());
+			LibraLog.error("libraConfig is exception ,e :" + e.getMessage());
 		}
 	}
 
